@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Livewire\GhUser\GhUserCreate;
+use App\Http\Livewire\GhUser\GhUserEdit;
+use App\Http\Livewire\GhUser\GhUserList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +23,14 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::prefix('usuariosgit')->name('gh_users.')->group(function(){
+        Route::get('/', GhUserList::class)->name('index');
+        Route::get('/create', GhUserCreate::class)->name('create');
+        Route::get('/edit/{gh_user}', GhUserEdit::class)->name('edit');
+        Route::get('/delete/{gh_user}', GhUserList::class)->name('delete');
+    });
+    
+});
