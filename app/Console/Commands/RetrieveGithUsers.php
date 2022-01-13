@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\GhUser;
 use Illuminate\Console\Command;
 use GrahamCampbell\GitHub\Facades\GitHub;
+use Illuminate\Support\Facades\Http;
 
 class RetrieveGithUsers extends Command
 {
@@ -38,6 +40,20 @@ class RetrieveGithUsers extends Command
      */
     public function handle(Github $hub)
     {
-        echo var_dump(GitHub::search()->users('type:user location:brasil location:brazil repos:>1 language:php language:laravel'));
+        GhUser::truncate();
+
+        $collection = collect();
+        $i = 1;
+
+        while ($i <= 3) { 
+            $collection = $collection->concat(Http::withToken(env('GITHUB_OATH_T'))->get('https://api.github.com/search/users', [
+                'q'         => 'type:"user" language:"php" language:"laravel" repos:>1 location:"brasil" location:"brazil"',
+                'page'      => $i,
+                'per_page'  => 100,
+            ])->collect()['items']);
+            $i++;
+        }
+
+        dd($collection);
     }
 }
