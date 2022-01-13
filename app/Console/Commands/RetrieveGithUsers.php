@@ -38,6 +38,6 @@ class RetrieveGithUsers extends Command
      */
     public function handle(Github $hub)
     {
-        echo var_dump(GitHub::search()->users('type:user location:brasil location:brazil repos:>1 language:php language:laravel'));
+        echo var_dump(GitHub::search()->users(['q' => 'type:user location:brasil location:brazil repos:>1 language:php language:laravel', 'per_page' => 100]));
     }
 }
