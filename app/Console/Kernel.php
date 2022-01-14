@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use App\Console\Commands\RetrieveGithUsers;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Artisan;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +17,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // Entrada no Schedule para executar o comando criado e ja ativar um Trabalhador de Fila para executar 1 job na fila
+        $schedule->command(RetrieveGithUsers::class)
+                 ->everyMinute()
+                 ->after(function() {
+                     Artisan::call('queue:work redis --once --tries=1');
+                 });
     }
 
     /**
