@@ -2,12 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Models\GhUser; 
+use App\Models\GhUser;
+use ErrorException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class SaveGhUser implements ShouldQueue
 {
@@ -30,18 +32,26 @@ class SaveGhUser implements ShouldQueue
     }
 
     /**
-     * Execute the job.
+     * Execute the job. Job for saving in the DB the 300 programmers max. alocated to it by the command 
      *
      * @return void
      */
     public function handle()
     {
         foreach ($this->users as $user) {
-            GhUser::create([
-                'login'     =>  $user['login'],
-                'gh_id'     =>  $user['id'],
-                'url'       =>  $user['url']
+            $validator = FacadesValidator::make($user, [
+                'login'     =>  'required',
+                'id'     =>  'required',
+                'url'       =>  'required'
             ]);
+
+            if(!$validator->fails()) {
+                GhUser::create([
+                    'login'     =>  $user['login'],
+                    'gh_id'     =>  $user['id'],
+                    'url'       =>  $user['url']
+                ]);
+            }
         }
     }
 }
