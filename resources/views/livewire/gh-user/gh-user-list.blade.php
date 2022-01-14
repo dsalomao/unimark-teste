@@ -31,6 +31,7 @@
                 <td class="px-4 py-2 border">{{$item->url}}</td>
                 <td class="px-4 py-2 border">{{$item->created_at->diffForHumans()}}</td>
                 <td class="px-4 py-2 border">
+                    <a href="{{route('gh_users.show', $item->id)}}" class="px-4 py-2 border rounded bg-blue-500 text-white">Visualizar</a>
                     <a href="{{route('gh_users.edit', $item->id)}}" class="px-4 py-2 border rounded bg-blue-500 text-white">Editar</a>
                     @if ($item->trashed())
                         <a href="#" wire:click.prevent='restore({{$item->id}})' class="px-4 py-2 border rounded bg-red-500 text-white">Restaurar</a>
