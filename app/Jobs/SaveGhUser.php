@@ -2,15 +2,12 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Middleware\RateLimited;
-use App\Models\GhUser;
-use Exception;
+use App\Models\GhUser; 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Redis;
 
 class SaveGhUser implements ShouldQueue
 {
@@ -20,7 +17,7 @@ class SaveGhUser implements ShouldQueue
      *
      * @var \App\Models\GhUser
      */
-    protected $user;
+    protected $users;
 
     /**
      * Create a new job instance.
