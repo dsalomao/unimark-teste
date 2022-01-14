@@ -8,6 +8,9 @@
     <div class="w-full mx-auto text-right mb-4">
         <a href="{{route('gh_users.create')}}" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">Criar Github User</a>
     </div>
+    <div class="w-full mx-auto text-right mb-4">
+        <input type="text" wire:model="searchTerm" class="appearance-none bg-gray-200 border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="procurar por login" />
+    </div>
 
     @include('includes.message')
 

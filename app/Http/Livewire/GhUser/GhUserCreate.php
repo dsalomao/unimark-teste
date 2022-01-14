@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class GhUserCreate extends Component
 {
-
     public $login;
     public $gh_id;
     public $url;

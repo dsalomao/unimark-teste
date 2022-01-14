@@ -7,9 +7,12 @@ use Livewire\Component;
 
 class GhUserList extends Component
 {
+    public $searchTerm;
+    
     public function render()
     {
-        $gh_users = GhUser::withTrashed()->paginate(10);
+        $searchTerm = '%' . $this->searchTerm . '%';
+        $gh_users = GhUser::where('login', 'like', $searchTerm)->withTrashed()->paginate(10);
 
         return view('livewire.gh-user.gh-user-list', compact('gh_users'));
     }
