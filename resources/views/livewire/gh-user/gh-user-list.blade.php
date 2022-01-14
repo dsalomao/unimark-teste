@@ -18,6 +18,7 @@
                 <th class="px-4 py-2">Login</th>
                 <th class="px-4 py-2">ID Github</th>
                 <th class="px-4 py-2">URL</th>
+                <th class="px-4 py-2">Status</th>
                 <th class="px-4 py-2">Criação</th>
                 <th class="px-4 py-2">Ações</th>
             </tr>
@@ -29,16 +30,19 @@
                 <td class="px-4 py-2 border">{{$item->login}}</td>
                 <td class="px-4 py-2 border">{{$item->gh_id}}</td>
                 <td class="px-4 py-2 border">{{$item->url}}</td>
+                <td class="px-4 py-2 border"><span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 {{ $item->trashed() ? 'bg-orange-500 line-through' : 'bg-teal-500' }} rounded-full">OK</span></td>
                 <td class="px-4 py-2 border">{{$item->created_at->diffForHumans()}}</td>
                 <td class="px-4 py-2 border">
-                    <a href="{{route('gh_users.show', $item->id)}}" class="px-4 py-2 border rounded bg-blue-500 text-white">Visualizar</a>
-                    <a href="{{route('gh_users.edit', $item->id)}}" class="px-4 py-2 border rounded bg-blue-500 text-white">Editar</a>
-                    @if ($item->trashed())
-                        <a href="#" wire:click.prevent='restore({{$item->id}})' class="px-4 py-2 border rounded bg-red-500 text-white">Restaurar</a>
-                        <a href="#" wire:click.prevent='remove({{$item->id}})' class="px-4 py-2 border rounded bg-red-500 text-white">Remover</a>
-                    @else
-                        <a href="#" wire:click.prevent='delete({{$item->id}})' class="px-4 py-2 border rounded bg-red-500 text-white">Deletar</a>
-                    @endif
+                    <div class="inline-flex">
+                        <a href="{{route('gh_users.show', $item->id)}}" class="px-4 py-2 border rounded bg-blue-500 text-white">Visualizar</a>
+                        <a href="{{route('gh_users.edit', $item->id)}}" class="px-4 py-2 border rounded bg-orange-500 text-white">Editar</a>
+                        @if ($item->trashed())
+                            <a href="#" wire:click.prevent='restore({{$item->id}})' class="px-4 py-2 border rounded bg-indigo-500 text-white">Restaurar</a>
+                            <a href="#" wire:click.prevent='remove({{$item->id}})' class="px-4 py-2 border rounded bg-red-500 text-white">Remover</a>
+                        @else
+                            <a href="#" wire:click.prevent='delete({{$item->id}})' class="px-4 py-2 border rounded bg-red-500 text-white">Deletar</a>
+                        @endif
+                    </div>
                 </td>
             </tr>
             @endforeach

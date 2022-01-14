@@ -20,7 +20,7 @@ class GhUserEdit extends Component
     public function update()
     {
         $this->validate([
-            'login' => 'required|unique:gh_users,login,'.$this->id
+            'login' => 'required'
         ]);
 
         $this->gh_user->update([
