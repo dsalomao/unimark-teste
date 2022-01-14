@@ -2,12 +2,15 @@
 
 namespace App\Jobs;
 
+use App\Jobs\Middleware\RateLimited;
+use App\Models\GhUser;
+use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Redis;
 
 class SaveGhUser implements ShouldQueue
 {
@@ -24,9 +27,9 @@ class SaveGhUser implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(GhUser $user)
+    public function __construct($users)
     {
-        $this->user = $user;
+        $this->users = $users;
     }
 
     /**
@@ -36,15 +39,12 @@ class SaveGhUser implements ShouldQueue
      */
     public function handle()
     {
-        // Middleware for executing job in a 30s cooldown
-        Redis::throttle('key')->block(0)->allow(1)->every(5)->then(function () {
-            info('Lock obtained...');
-    
-            // Handle job...
-        }, function () {
-            // Could not obtain lock...
-    
-            return $this->release(30);
-        });
+        foreach ($this->users as $user) {
+            GhUser::create([
+                'login'     =>  $user['login'],
+                'gh_id'     =>  $user['id'],
+                'url'       =>  $user['url']
+            ]);
+        }
     }
 }

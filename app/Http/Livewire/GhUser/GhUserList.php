@@ -9,7 +9,7 @@ class GhUserList extends Component
 {
     public function render()
     {
-        $gh_users = GhUser::withTrashed()->paginate(3);
+        $gh_users = GhUser::withTrashed()->paginate(10);
 
         return view('livewire.gh-user.gh-user-list', compact('gh_users'));
     }

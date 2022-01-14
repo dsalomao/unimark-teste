@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SaveGhUser;
 use App\Models\GhUser;
 use Illuminate\Console\Command;
-use GrahamCampbell\GitHub\Facades\GitHub;
 use Illuminate\Support\Facades\Http;
+
+use function Clue\StreamFilter\fun;
 
 class RetrieveGithUsers extends Command
 {
@@ -38,7 +40,7 @@ class RetrieveGithUsers extends Command
      *
      * @return int
      */
-    public function handle(Github $hub)
+    public function handle()
     {
         GhUser::truncate();
 
@@ -47,13 +49,13 @@ class RetrieveGithUsers extends Command
 
         while ($i <= 3) { 
             $collection = $collection->concat(Http::withToken(env('GITHUB_OATH_T'))->get('https://api.github.com/search/users', [
-                'q'         => 'type:"user" language:"php" language:"laravel" repos:>1 location:"brasil" location:"brazil"',
+                'q'         => 'type:"user" language:"php" language:"laravel" repos:>1 is:public location:"brasil" location:"brazil" repos:1:stars:>9',
                 'page'      => $i,
-                'per_page'  => 100,
+                'per_page'  => 3,
             ])->collect()['items']);
             $i++;
         }
 
-        dd($collection);
+        SaveGhUser::dispatch($collection)->onConnection('redis');      
     }
 }
