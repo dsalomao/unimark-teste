@@ -1,66 +1,59 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img width="800" height="328" src="https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-1024x420.png" class="attachment-large size-large" alt="" loading="lazy" srcset="https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-1024x420.png 1024w, https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-300x123.png 300w, https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-768x315.png 768w, https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas.png 1346w" sizes="(max-width: 800px) 100vw, 800px"></a></p>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Sobre
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este era um desafio de criar um CRUD de programadores e importaão dos mesmos através da API do Github.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Importação de Programadores
+Consumir a API pública do Github para trazer 300 programadores com os seguintes requisitos (Utilizar Command + Job):
 
-## Learning Laravel
+- **Conhecimento em PHP e Laravel**
+- **Localizado no Brasil**
+- **Possuir mais de 1 repositório público**
+- **Possuir mais de 9 estrelas em qualquer um de seus repositórios**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Armazenamento
+Estes programadores deverão ser armazenados em uma base de dados MySQL ou Maria DB de forma estruturada e normalizada para que seja fácil o consumo dessas informações posteriormente.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### CRUD Programadores
 
-## Laravel Sponsors
+- **Listagem paginada de programadores (10 por página)**
+- **Adicionar programador manualmente**
+- **Editar programador existente**
+- **Excluir programador de forma segura**
+- **Pesquisar programador por nome**
+- **Visualizar um programador específico (Perfil do Programador)**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Autenticação
+Não podemos deixar essa Área Administrativa exposta para o mundo, então você vai precisar que ela tenha rotas protegidas por usuários autenticados e gestão de usuários que
+poderão acessar essa área.
 
-### Premium Partners
+## Execução e Observações
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+- **Todos os requisitos foram executados.**
 
-## Contributing
+### CRUD
+- **O CRUD de programadores pode ser acessado criando um usuário na tela Wealcome e fazendo login na ferramenta.**
+- **No CRUD é possível criar, ler, editar, deletar(logicamente), remover(permanentemente) e buscar por nome qualquer programador.**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### COMMAND
+- **Foi Criado um comando do artisan chamado "custom:gitusers que comunica com a API do Github e traz 300 programadores com os requisitos solicitados. Esses requisitos nesta versão não podem ser passados como parâmetros para o comando."**
+- **As requisições feitas peo comando são salvas na base de dados para administração da paginação e garantia de importação de todas as páginas de programadores do Github para aqueles parâmetros.**
+- **Ao final da execução o comando também joga um JOB na fila com esses 300 programadores.**
+- **PARA RODAR O COMANDO: sail artisan custom:gitusers**
 
-## Code of Conduct
+- **IMPORTANTE: Algumas requisições da API do Github necessitam autenticação. Então colocar sua OATH Token no arquivo .env. GITHUB_OATH_T="MINHA OATH TOKEN"**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### JOB
+- **Foi criado um JOB para cadastrar no BD de forma assincrona os programadores requisitados pelo comando.**
 
-## Security Vulnerabilities
+### SCHEDULER
+- **Foi criado um agendador que executa o comando a cada 5 minutos. Para não ter de inicializar outro worker manualmente, foi programada a execução de um QUEUE WORKER ao final da execução do comando no Scheduler**
+- **PARA RODAR O SCHEDULER: sail artisan schedule:work**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
