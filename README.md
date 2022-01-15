@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img width="800" height="328" src="https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-1024x420.png" class="attachment-large size-large" alt="" loading="lazy" srcset="https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-1024x420.png 1024w, https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-300x123.png 300w, https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas-768x315.png 768w, https://universidademarketplaces.com.br/wp-content/uploads/2021/03/logo-ok_curvas.png 1346w" sizes="(max-width: 800px) 100vw, 800px"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
